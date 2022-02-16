@@ -1,0 +1,22 @@
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  = link_to "Fort Wayne Local's", root_path, class: "navbar-brand"
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item
+        = link_to "About Us", about_path, class: "nav-link"
+      %li.nav-item
+        %a.nav-link{:href => "#"} Link
+      %li.nav-item
+        %a.nav-link{:href => "#"} Coffee Shops
+
+
+= render 'layouts/alerts'
+
+
+
+
+
+
+
