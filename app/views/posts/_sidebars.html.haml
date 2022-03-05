@@ -1,0 +1,26 @@
+.card.mb-4
+  .card-header
+    Search
+  .card-body
+    = form_tag posts_path, method: :get do
+      .input-group
+        = text_field_tag :posts_search, params[:posts_search], class: 'form-control', placeholder: 'Search...'
+        .input-group-append
+          = submit_tag 'Go!', class: 'btn btn-dark'
+.card.mb-4
+  .card-header
+    Categories
+  .card-body
+    .row
+      .col-6
+        %ul.list-unstyled
+          - Tag.first(3).each do |tag|
+            %li= link_to tag.name, '#'
+      .col-6
+        %ul.list-unstyled
+          - Tag.offset(3).first(3).each do |tag|
+            %li= link_to tag.name, '#'
+.card.mb-4
+  .card-header
+    Side Widget
+  .card-body

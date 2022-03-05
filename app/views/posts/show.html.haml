@@ -1,15 +1,36 @@
-%p#notice= notice
-
-%p
-  %b Title:
-  = @post.title
-%p
-  %b Body:
-  = @post.body
-%p
-  %b User:
-  = @post.user
-
-= link_to 'Edit', edit_post_path(@post)
-\|
-= link_to 'Back', posts_path
+- if alert
+  .alert.alert-danger
+    = alert
+- if notice
+  .alert.alert-success
+    = notice
+.row.mt-4
+  .col-8
+    %h2
+      = @post.title
+    %hr
+    .author_name
+      %small
+        = link_to @post.author.name, author_path(@post.author)
+    %small
+      = @post.created_at.strftime('%B %e, %Y at %l:%M %p')
+    %hr/
+    %img.img-fluid.rounded{:src => "http://placehold.it/900x300"}/
+    %hr/
+    %p
+      = simple_format @post.body
+    %hr/
+    .card.mb-4
+      .card-header
+        Leave a Comment:
+      .card-body
+        = form_for Comment.new, url: post_comments_path(@post) do |form|
+          .form-group
+            = form.text_field :commenter_name, class: 'd-block form-control', placeholder: 'Your name.', required: true
+          .form-group
+            = form.text_area :body, class: 'd-block form-control', placeholder: 'Your comment.', required: true
+          = form.submit 'Submit', class: 'btn btn-primary'
+    - @post.comments.each do |comment|
+      = render 'comments/show', comment: comment
+  .col-4
+    = render 'sidebar_cards'

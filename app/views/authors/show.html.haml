@@ -1,0 +1,14 @@
+- if alert
+  .alert.alert-danger
+    = alert
+- if notice
+  .alert.alert-success
+    = notice
+.row.mt-4
+  .col-8
+    %h2
+      = @author.name
+    %hr
+      .author_age
+        %small
+          = @author.age

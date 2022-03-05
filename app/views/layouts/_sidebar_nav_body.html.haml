@@ -1,0 +1,42 @@
+.navbar-offset
+  = link_to "#", class: 'js-sidebar-collapse mr-1' do
+    %i.fa.fa-2x.sidebar-collapse-icon
+
+.clearfix
+
+.d-flex.flex-column.flex-shrink-4.p-3.text-white.bg-dark{:style => "width: 280px;"}
+  %a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.text-white.text-decoration-none{:href => "/"}
+  %ul.nav.nav-pills.flex-column.mb-auto
+    %li.nav-item
+      %a.nav-link.active{"aria-current" => "page", :href => "#"}
+        %svg.bi.me-2{:height => "30", :width => "16"}
+          %use{"xlink:href" => "#home"}
+        Home
+    %li
+      %a.nav-link.text-white{:href => "#"}
+        %svg.bi.me-2{:height => "30", :width => "16"}
+          %use{"xlink:href" => "#speedometer2"}
+        Dashboard
+    %li
+      %a.nav-link.text-white{:href => "#"}
+        %svg.bi.me-2{:height => "30", :width => "16"}
+          %use{"xlink:href" => "#table"}
+        Orders
+    %li
+      %a.nav-link.text-white{:href => "#"}
+        %svg.bi.me-2{:height => "30", :width => "16"}
+          %use{"xlink:href" => "#grid"}
+        Products
+    %li
+      %a.nav-link.text-white{:href => "#"}
+        %svg.bi.me-2{:height => "30", :width => "16"}
+          %use{"xlink:href" => "#people-circle"}
+        Customers
+    %li
+      %a.nav-link.text-dark{:href => "#"}
+        %svg.bi.me-2{:height => "1000", :width => "16"}
+          %use{"xlink:href" => "#people-circle"}
+
+
+
+

@@ -1,0 +1,6 @@
+%h5 Add a Tag
+
+= form_for @tagging, url: post_taggings_path(@post) do |form|
+  = form.hidden_field :post_id
+  = form.select :tag_id, Tag.all.map { |tag| [tag.name, tag.id] }, { include_blank: 'Select a Tag.' }
+  = form.submit 'Add Tag'
