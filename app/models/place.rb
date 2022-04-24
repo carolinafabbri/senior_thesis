@@ -1,14 +1,9 @@
-class Place < ActiveRecord::Base
-  has_many :ratings
-  has_many :posts
+class Place < ApplicationRecord
+  has_many :comments
+  has_many :taggings
+  has_many :tags, through: :taggings
 
-  attribute :name
-  attribute :description
-  attribute :type
-  attribute :location
-  attribute :picture
-
-  def average_rating
-    ratings.map(&:value).sum / ratings.count
-  end
+  # def average_rating
+    # ratings.map(&:value).sum / ratings.count
+  # end
 end

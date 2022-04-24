@@ -1,0 +1,32 @@
+#carouselExampleControls.carousel.slide{"data-ride" => "carousel", style: "max-height:400px"}
+  .carousel-inner
+    .carousel-item.active
+      %img.d-block.w-100{:alt => "First slide", :src => FFaker::Image.url}/
+    .carousel-item
+      %img.d-block.w-100{:alt => "Second slide", :src => FFaker::Image.url}/
+    .carousel-item
+      %img.d-block.w-100{:alt => "Third slide", :src => FFaker::Image.url}/
+  %a.carousel-control-prev{"data-slide" => "prev", :href => "#carouselExampleControls", :role => "button"}
+    %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+    %span.sr-only Previous
+  %a.carousel-control-next{"data-slide" => "next", :href => "#carouselExampleControls", :role => "button"}
+    %span.carousel-control-next-icon{"aria-hidden" => "true"}
+    %span.sr-only Next
+  .row
+    .col-8
+      %h2.mt-3= @place.name
+      %hr
+      %p= @place.description
+    .col-4
+      Likes and Dislikes
+  %hr
+  .row
+    .col-12
+      %h3 This is what people are saying about "#{@place.name}"
+
+      = form_for [@place, Comment.new(user: current_user)] do |f|
+        .form-group
+          = f.text_field :content, placeholder: "Tell us what you think!", class: "form-control"
+          = f.submit :submit, class: "btn btn-primary"
+      -# - @places.comments.each do |comment|
+        -# = render partial: 'comment', comment: comment

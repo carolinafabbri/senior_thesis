@@ -1,10 +1,11 @@
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   validates :title, :body, presence: true
 
   has_many :comments
   has_many :taggings
   has_many :tags, through: :taggings
   belongs_to :author
+  has_many :likes, as: :reference, dependent: :destroy
 
   scope :search, ->(search_terms) do
     return nil if search_terms.blank?
