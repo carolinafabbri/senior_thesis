@@ -1,0 +1,50 @@
+//This page is for the stylesheets on home page for places
+//
+.list-container{
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+// .left-col{
+  // flex-basis: 70%;
+// }
+// .right-col{
+  // felx-basis: 25%;
+// }
+// .left-col h1{
+  // color: #333;
+  // font-weight: 600;
+  // margin-bottom: 30px;
+// }
+
+.column {
+  float: left;
+  padding: 0px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 40%;
+}
+
+.right {
+  width: 60%;
+}
+
+.place{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 30px 0;
+  border-top: 1px solid #ccc;
+}
+.voting{
+  position: relative;
+  border: 3px solid #303030;
+  border-radius: 4px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+}

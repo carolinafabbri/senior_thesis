@@ -1,13 +1,34 @@
 .d-flex.flex-row.justify-content-between.flex-wrap
+  .container
+    %div{class: "list-container"}
+      .left-col
+        %p Places listed
+        %h3 (Name of the place category) in Fort Wayne
   - @places.each do |place|
     = link_to place_path(place), class: "w-100 my-3 p-3" do
-      .col-12
-        %a.list-group-item.list-group-item-action.flex-column.align-items-start.w-100.active{:href => "#"}
-  .d-flex.w-100.justify-content-between
-    %h5.mb-1 List group item heading
-    %small 3 days ago
-  %p.mb-1 Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-  %small Donec id elit non mi porta.
+      .container.column.left
+        .place
+          .place-img
+            %img{:src => FFaker::Image.url}/
+            .place-img
+              -# %p Name of the X place
+              -# %h3 Extra information about the X place
+      .container.column.right
+        .place
+          %h4.mt-3= place.name
+          %p "badges"
+        %p= place.description
+
+        .container
+          %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css", :rel => "stylesheet"}/
+          %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}/
+          .voting
+            %button#likebtn
+              %i.fa.fa-thumbs-up
+                %input#input1{:name => "", :type => "number", :value => "0"}/
+            %button#dislikebtn
+              %i.fa.fa-thumbs-down
+                %input#input2{:name => "", :type => "number", :value => "0"}/
 
 .d-flex.flex-row.justify-content-center
   = will_paginate @places, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer
