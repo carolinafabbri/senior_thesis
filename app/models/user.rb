@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def username
     return self.email.split('@')[0].capitalize
   end
+
+  def liked?(reference)
+    likes.where(reference: reference).any?
+  end
 end

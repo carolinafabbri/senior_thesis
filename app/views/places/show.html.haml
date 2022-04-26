@@ -1,3 +1,4 @@
+//the side bar doesn't stay fixed????
 #carouselExampleControls.carousel.slide{"data-ride" => "carousel", style: "max-height:400px"}
   .carousel-inner
     .carousel-item.active
@@ -18,7 +19,19 @@
       %hr
       %p= @place.description
     .col-4
-      Likes and Dislikes
+      .container
+        %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css", :rel => "stylesheet"}/
+        %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}/
+        .voting.m-3
+          - if current_user.present? && !current_user.liked?(@place)
+            = link_to place_likes_path(@place), method: :post do
+              %i.fa.fa-thumbs-up
+                = @place.likes.count
+          - else
+            = link_to place_like_path(@place, current_user.likes.where(reference: @place).first), method: :delete do
+              %i.fa.fa-thumbs-down
+                = @place.likes.count
+
   %hr
   .row
     .col-12
@@ -27,6 +40,10 @@
       = form_for [@place, Comment.new(user: current_user)] do |f|
         .form-group
           = f.text_field :content, placeholder: "Tell us what you think!", class: "form-control"
-          = f.submit :submit, class: "btn btn-primary"
+          %p
+        .input-group-append
+          = submit_tag 'Submit', class: "btn btn-dark"
+
+          -# = f.submit :submit, class: "btn btn-primary"
       -# - @places.comments.each do |comment|
         -# = render partial: 'comment', comment: comment

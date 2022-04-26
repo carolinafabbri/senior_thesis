@@ -2,8 +2,7 @@
   .container
     %div{class: "list-container"}
       .left-col
-        %p Places listed
-        %h3 (Name of the place category) in Fort Wayne
+        %h3 "#{@filter}" in Fort Wayne
   - @places.each do |place|
     = link_to place_path(place), class: "w-100 my-3 p-3" do
       .container.column.left
@@ -16,19 +15,21 @@
       .container.column.right
         .place
           %h4.mt-3= place.name
-          %p "badges"
+          //wraps the bagdes together
+          %div
+            - place.tags.limit(3).each do |tag|
+              .badge.badge-primary= tag.name
         %p= place.description
 
         .container
           %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css", :rel => "stylesheet"}/
           %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}/
           .voting
-            %button#likebtn
-              %i.fa.fa-thumbs-up
-                %input#input1{:name => "", :type => "number", :value => "0"}/
-            %button#dislikebtn
-              %i.fa.fa-thumbs-down
-                %input#input2{:name => "", :type => "number", :value => "0"}/
+            //this voting needs to edit better and not have "link" input for the whole thing, also have be on the right.
+            %i.fa.fa-thumbs-up
+              = place.likes.count
+
 
 .d-flex.flex-row.justify-content-center
   = will_paginate @places, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer
+

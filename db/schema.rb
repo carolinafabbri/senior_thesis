@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_09_160258) do
+ActiveRecord::Schema.define(version: 2022_04_25_233147) do
 
   create_table "authors", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 2022_04_09_160258) do
     t.datetime "updated_at", null: false
     t.index ["place_id"], name: "index_comments_on_place_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "reference_id", null: false
+    t.integer "reference_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "places", force: :cascade do |t|
@@ -76,14 +84,6 @@ ActiveRecord::Schema.define(version: 2022_04_09_160258) do
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "likes" :votes do |t|
-    t.integer :reference_id
-    t.string  :reference_type
-    t.integer :user_id
-    t.integer :value, default: 0
-    t.timestamps null: false
   end
 
 end

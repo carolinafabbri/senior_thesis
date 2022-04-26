@@ -24,6 +24,7 @@ gem "will_paginate", "~> 3.3"
 gem 'google_places'
 gem 'bootstrap-will_paginate'
 
+gem "erb2haml", :group => :development
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
