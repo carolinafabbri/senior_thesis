@@ -1,49 +1,49 @@
-//the side bar doesn't stay fixed????
-#carouselExampleControls.carousel.slide{"data-ride" => "carousel", style: "max-height:400px"}
+#carouselExampleSlidesOnly.carousel.slide{"data-ride" => "carousel", style: "max-height:400px"}
   .carousel-inner
-    .carousel-item.active
-      %img.d-block.w-100{:alt => "First slide", :src => FFaker::Image.url}/
-    .carousel-item
-      %img.d-block.w-100{:alt => "Second slide", :src => FFaker::Image.url}/
-    .carousel-item
-      %img.d-block.w-100{:alt => "Third slide", :src => FFaker::Image.url}/
-  %a.carousel-control-prev{"data-slide" => "prev", :href => "#carouselExampleControls", :role => "button"}
-    %span.carousel-control-prev-icon{"aria-hidden" => "true"}
-    %span.sr-only Previous
-  %a.carousel-control-next{"data-slide" => "next", :href => "#carouselExampleControls", :role => "button"}
-    %span.carousel-control-next-icon{"aria-hidden" => "true"}
-    %span.sr-only Next
-  .row
-    .col-8
-      %h2.mt-3= @place.name
-      %hr
-      %p= @place.description
-    .col-4
-      .container
-        %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css", :rel => "stylesheet"}/
-        %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}/
-        .voting.m-3
-          - if current_user.present? && !current_user.liked?(@place)
-            = link_to place_likes_path(@place), method: :post do
-              %i.fa.fa-thumbs-up
-                = @place.likes.count
-          - else
-            = link_to place_like_path(@place, current_user.likes.where(reference: @place).first), method: :delete do
-              %i.fa.fa-thumbs-down
-                = @place.likes.count
+    - @place.images.each.with_index(0) do |image, index|
+      .carousel-item{class: "#{'active' if index.zero?}"}
+        %img.d-block.w-100{:alt => "First slide", :src => image.url}/
 
-  %hr
-  .row
-    .col-12
-      %h3 This is what people are saying about "#{@place.name}"
+- if alert
+  .alert.alert-danger
+    = alert
+- if notice
+  .alert.alert-success
+    = notice
+.row
+  .col-8
+    %h2.mt-3= @place.name
+    %hr
+    %p= @place.description
+  .col-4
+    .container
+      %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css", :rel => "stylesheet"}/
+      %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}/
+      .voting.m-3
+        - if current_user.present? && !current_user.liked?(@place)
+          = link_to place_likes_path(@place), method: :post do
+            %i.fa.fa-thumbs-up
+              = @place.likes.count
+        - else
+          = link_to place_like_path(@place, current_user.likes.where(reference: @place).first), method: :delete do
+            %i.fa.fa-thumbs-down
+              = @place.likes.count
 
-      = form_for [@place, Comment.new(user: current_user)] do |f|
-        .form-group
-          = f.text_field :content, placeholder: "Tell us what you think!", class: "form-control"
-          %p
-        .input-group-append
-          = submit_tag 'Submit', class: "btn btn-dark"
+%hr
+.row
+  .col-12
+    %h3 This is what people are saying about "#{@place.name}"
+    .card-header
+      Leave a Comment:
+      .card-body
+        = form_for [@place, Comment.new] do |f|
+          .form-group
+            = f.hidden_field :user_id, value: current_user.id
+            = f.hidden_field :place_id, value: @place.id
+            = f.text_field :content, placeholder: "Leave a comment here.", class: "form-control"
+            %p
+          .input-group-append
+            = f.submit 'Submit', class: "btn btn-dark"
 
-          -# = f.submit :submit, class: "btn btn-primary"
-      -# - @places.comments.each do |comment|
-        -# = render partial: 'comment', comment: comment
+- @place.comments.includes(:user).order(created_at: :desc).each do |comment|
+  = render 'comments/show', comment: comment

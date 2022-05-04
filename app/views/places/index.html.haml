@@ -3,15 +3,12 @@
     %div{class: "list-container"}
       .left-col
         %h3 "#{@filter}" in Fort Wayne
-  - @places.each do |place|
+  - @places.includes(:images).each do |place|
     = link_to place_path(place), class: "w-100 my-3 p-3" do
       .container.column.left
         .place
           .place-img
-            %img{:src => FFaker::Image.url}/
-            .place-img
-              -# %p Name of the X place
-              -# %h3 Extra information about the X place
+            %img{height: 300, width: 300, src: place.images.first.url}/
       .container.column.right
         .place
           %h4.mt-3= place.name
@@ -29,6 +26,7 @@
             %i.fa.fa-thumbs-up
               = place.likes.count
 
+%p
 
 .d-flex.flex-row.justify-content-center
   = will_paginate @places, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer
