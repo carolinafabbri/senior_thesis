@@ -21,11 +21,11 @@
       %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}/
       .voting.m-3
         - if current_user.present? && !current_user.liked?(@place)
-          = link_to place_likes_path(@place), method: :post do
+          = button_to place_likes_path(@place), class: "like-button" do
             %i.fa.fa-thumbs-up
               = @place.likes.count
         - else
-          = link_to place_like_path(@place, current_user.likes.where(reference: @place).first), method: :delete do
+          = button_to place_like_path(@place, current_user.likes.where(reference: @place).first), class: "like-button" do
             %i.fa.fa-thumbs-down
               = @place.likes.count
 
